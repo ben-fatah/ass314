@@ -8,7 +8,7 @@ app.use(
     extended: true,
   })
 );
-const database = require("./database/database.js"); 
+const database = require("../database/database.js"); 
 
 
 app.use('/', express.static(path.join(__dirname, 'public', 'login')));

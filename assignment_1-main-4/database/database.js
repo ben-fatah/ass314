@@ -3,7 +3,24 @@ const path = require('path');
 
 const dbPath = path.resolve(__dirname, 'database.db');
 
+// Check if a user already exists
+const findUserByUsername = async (username) => {
+  const db = await dbinit();
+  const sql = `SELECT * FROM users WHERE username = '${username}'`;
+  
+  return new Promise((resolve, reject) =>
+    db.all(sql, [], (err, rows) => {
+      db.close();
+      if (err) {
+        return reject(err);
+      }
+      // If no user found, return empty array
+      return resolve(rows);
+    })
+  );
+};
 
+// Authenticate user login
 const authentication = async ({ username, password }) => {
   const db = await dbinit();
   const sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
@@ -18,14 +35,14 @@ const authentication = async ({ username, password }) => {
         return resolve([]);
       }
       return resolve(rows);
-    }
-    )
-  )
+    })
+  );
 };
 
+// Signup user (add user to database)
 const signup = async ({ username, password }) => {
   const db = await dbinit();
-  // add the user and password to the database
+  // Add the user and password to the database
   const sql = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`;
   try {
     db.run(sql);
@@ -38,6 +55,7 @@ const signup = async ({ username, password }) => {
   }
 };
 
+// Initialize the database and create the table if it doesn't exist
 const dbinit = async () => {
   try {
     const db = await new sqlite3.Database(dbPath);
@@ -59,6 +77,6 @@ const dbinit = async () => {
 
 module.exports = {
   authenticate: authentication,
-  signup: signup
+  signup: signup,
+  findUserByUsername: findUserByUsername // Added the missing function
 };
-
