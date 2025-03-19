@@ -21,7 +21,8 @@ const findUserByUsername = async (username) => {
 };
 
 // Authenticate user login
-const authentication = async ({ username, password 
+const authentication = async ({ username, password }) => {
+
   const db = await dbinit();
   const sql = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
   return new Promise((resolve, reject) =>
