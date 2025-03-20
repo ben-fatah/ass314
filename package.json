@@ -1,0 +1,21 @@
+{
+  "name": "secure-auth",
+  "version": "1.0.0",
+  "description": "this website present the most secure auth ever.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "security",
+    "auth"
+  ],
+  "author": "swe314 ksu",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemon": "^3.1.7",
+    "sqlite3": "^5.1.7"
+  }
+}
